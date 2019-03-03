@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    title #{title}
+    link(rel='stylesheet', href='/css/style.css')
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+  body
+    main
+      block header
+        header.header
+          H1 <img src = "/images/logo_f5.png">  #{title} 
+      block content

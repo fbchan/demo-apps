@@ -1,0 +1,21 @@
+extends default
+
+block content
+  div.container
+    body
+        h3= hostname
+        h5= host_header
+        h5= user_agent
+        h5= remote_address
+        h5= local_address
+        h5= x_forwarded_for
+  div.container2
+    div.item-image(style=`background: url('/images/delivery.png') top center
+        no-repeat; background-size: cover;`)
+    div.item-image(style=`background: url('/images/insight.png') top center
+        no-repeat; background-size: cover;`)
+    div.item-image(style=`background: url('/images/security.png') top center
+        no-repeat; background-size: cover;`)
+
+
+

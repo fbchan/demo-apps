@@ -1,0 +1,18 @@
+{
+  "name": "demo-apps",
+  "version": "0.1.0",
+  "description": "Simple F5 Demo Apps",
+  "main": "apps.js",
+  "scripts": {
+    "start": ""
+  },
+  "author": "Foo-Bang Chan",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "pm2": "^2.10.3"
+  }
+}
