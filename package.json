@@ -4,8 +4,7 @@
   "description": "Simple F5 Demo Apps",
   "main": "apps.js",
   "scripts": {
-    "start": " node apps.js",
-    "test": "./node_modules/.bin/mocha"
+    "start": " node apps.js"
   },
   "author": "Foo-Bang Chan",
   "license": "MIT",
