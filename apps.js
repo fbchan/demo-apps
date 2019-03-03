@@ -17,19 +17,12 @@ app.get('/feature', function (req, res) {
 
 // serve static files from the `public` folder
 app.use(express.static(__dirname + '/public'));
-// ...
-
 app.get('/', function (req, res) {
   
     remote_ip = req.connection.remoteAddress;
     if (remote_ip.substr(0, 7) == "::ffff:") {
       remote_ip = remote_ip.substr(7)
     }
-
-    //x_forward_ip = req.headers['x-forwarded-for'];
-    //if (x_forward_ip.substr(0, 7) == "::ffff:") {
-    //  x_forward_ip = x_forward_ip.substr(7)
-   // }
     
     local_ip = req.connection.localAddress;
     if (local_ip.substr(0, 7) == "::ffff:") {
@@ -37,7 +30,6 @@ app.get('/', function (req, res) {
     }
     
   res.render('index', {
-
     title: 'F5 DEMO Applications ',
     hostname: 'HOSTNAME : ' + os.hostname(),
     host_header: 'HOST HEADER ==> ' + req.header('host'),
@@ -45,16 +37,9 @@ app.get('/', function (req, res) {
     remote_address: 'REMOTE ADDRESS ==> ' + remote_ip + "  :  " + req.connection.remotePort,
     local_address: 'LOCAL ADDRESS ==> ' + local_ip + " : " + req.connection.localPort,
     x_forwarded_for: 'X-FORWARDED-FOR ==> ' +  req.headers['x-forwarded-for']
-   // client_ip: req.ip,
-   // X-forwarded-for: req.headers('x-forwarded-for')
 
   });
-
-  //console.log(remote_ip);
-  //console.log(req.originalUrl);
-  //console.log(req.ip);
-  
-  console.log(req.headers);
+  //console.log(req.headers);
 });
 
 const server = app.listen(8080, '0.0.0.0', () => {
