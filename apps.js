@@ -26,11 +26,11 @@ app.get('/', function (req, res) {
       remote_ip = remote_ip.substr(7)
     }
 
-    x_forward_ip = req.headers('x-forwarded-for');
-    if (x_forward_ip.substr(0, 7) == "::ffff:") {
-      x_forward_ip = x_forward_ip.substr(7)
-    }
-
+    //x_forward_ip = req.headers['x-forwarded-for'];
+    //if (x_forward_ip.substr(0, 7) == "::ffff:") {
+    //  x_forward_ip = x_forward_ip.substr(7)
+   // }
+    
     local_ip = req.connection.localAddress;
     if (local_ip.substr(0, 7) == "::ffff:") {
       local_ip = local_ip.substr(7)
@@ -44,7 +44,7 @@ app.get('/', function (req, res) {
     user_agent: 'USER AGENT ==> ' + req.header('user-agent'),
     remote_address: 'REMOTE ADDRESS ==> ' + remote_ip + "  :  " + req.connection.remotePort,
     local_address: 'LOCAL ADDRESS ==> ' + local_ip + " : " + req.connection.localPort,
-    x_forwarded_for: 'X-FORWARDED-FOR ==> ' + x_forward_ip 
+    x_forwarded_for: 'X-FORWARDED-FOR ==> ' +  req.headers['x-forwarded-for']
    // client_ip: req.ip,
    // X-forwarded-for: req.headers('x-forwarded-for')
 
