@@ -21,12 +21,17 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
   
-    remote_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    remote_ip = req.connection.remoteAddress;
     if (remote_ip.substr(0, 7) == "::ffff:") {
       remote_ip = remote_ip.substr(7)
     }
 
-    local_ip = req.headers['x-forwarded-for'] || req.connection.localAddress;
+    x-forward-ip = req.headers['x-forwarded-for'];
+    if (x-forward-ip.substr(0, 7) == "::ffff:") {
+      x-forward-ip = x-forward-ip.substr(7)
+    }
+    
+    local_ip = req.connection.localAddress;
     if (local_ip.substr(0, 7) == "::ffff:") {
       local_ip = local_ip.substr(7)
     }
@@ -39,7 +44,7 @@ app.get('/', function (req, res) {
     user_agent: 'USER AGENT ==> ' + req.header('user-agent'),
     remote_address: 'REMOTE ADDRESS ==> ' + remote_ip + "  :  " + req.connection.remotePort,
     local_address: 'LOCAL ADDRESS ==> ' + local_ip + " : " + req.connection.localPort,
-    x_forwarded_for: 'X-FORWARDED-FOR ==> ' +  req.header('x-forwarded-for')
+    x_forwarded_for: 'X-FORWARDED-FOR ==> ' + x-forward-ip 
    // client_ip: req.ip,
    // X-forwarded-for: req.headers('x-forwarded-for')
 
@@ -49,7 +54,7 @@ app.get('/', function (req, res) {
   //console.log(req.originalUrl);
   //console.log(req.ip);
   
-  //console.log(req.headers);
+  console.log(req.headers);
 });
 
 const server = app.listen(30000, '0.0.0.0', () => {
