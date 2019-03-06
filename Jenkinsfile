@@ -4,6 +4,7 @@ pipeline {
         //Docker Hub username
         DOCKER_IMAGE_NAME = "foobz/demo-apps"
         FQDN = "apps5.foobz.com.au"
+        APPS_NAME = "f5-demo-apps5"
     }
     stages {
         stage('Build') {
@@ -69,7 +70,7 @@ pipeline {
             steps {
                 // Deploy Application Services
                 milestone(3)
-                build 'blue-apps-services'
+                build job: 'blue-apps-services', parameters: [string(name: 'FQDN', value: FQDN)]
             }
         }
     }
