@@ -3,6 +3,7 @@ pipeline {
     environment {
         //Docker Hub username
         DOCKER_IMAGE_NAME = "foobz/demo-apps"
+        FQDN = "apps5.foobz.com.au"
     }
     stages {
         stage('Build') {
