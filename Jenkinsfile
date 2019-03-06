@@ -1,10 +1,9 @@
 pipeline {
     agent any
     environment {
-        //Docker Hub username
-        DOCKER_IMAGE_NAME = "foobz/demo-apps"
-        FQDN = "apps5.foobz.com.au"
         APPS_NAME = "f5-demo-apps5"
+        FQDN = "apps5.foobz.com.au"
+        DOCKER_IMAGE_NAME = "foobz/demo-apps"
     }
     stages {
         stage('Build') {
