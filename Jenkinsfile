@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         APPS_NAME = "f5-demo-apps10"
-        FQDN = "app100.foobz.com.au"
+        FQDN = "demoapp.foobz.com.au"
         DOCKER_IMAGE_NAME = "foobz/demo-apps"
     }
     stages {
@@ -69,7 +69,7 @@ pipeline {
             steps {
                 // Deploy Application Services
                 milestone(3)
-                build (job: "blue-apps-services-http", 
+                build (job: "bigip-app-services-as3", 
                        parameters: 
                        [string(name: 'FQDN', value: FQDN),
                        string(name: 'APPS_NAME', value: APPS_NAME)])
