@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
     }
     
   res.render('index', {
-    title: 'F5 Multi-Cloud App',
+    title: 'F5 Multi-Cloud App testing',
     hostname: 'HOSTNAME : ' + os.hostname(),
     host_header: 'HOST HEADER ==> ' + req.header('host'),
     user_agent: 'USER AGENT ==> ' + req.header('user-agent'),
