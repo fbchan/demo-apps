@@ -69,7 +69,7 @@ pipeline {
             steps {
                 // Deploy Application Services
                 milestone(3)
-                build (job: "bigip-app-services-as3", 
+                build (job: "blue-apps-services-http", 
                        parameters: 
                        [string(name: 'FQDN', value: FQDN),
                        string(name: 'APPS_NAME', value: APPS_NAME)])
