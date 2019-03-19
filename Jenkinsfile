@@ -69,7 +69,7 @@ pipeline {
             steps {
                 // Deploy Application Services test
                 milestone(3)
-                build (job: "blue-apps-services-http", 
+                build (job: "blue-apps-services-appsec", 
                        parameters: 
                        [string(name: 'FQDN', value: FQDN),
                        string(name: 'APPS_NAME', value: APPS_NAME)])
