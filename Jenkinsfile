@@ -32,13 +32,6 @@ pipeline {
                 anchore name: 'anchore_images'
             }
         }
-        stage('Container Clean Up') {
-            steps {
-                sh'''
-                    for i in `cat anchore_images | awk '{print $1}'`;do docker rmi $i; done
-                '''
-            }
-        }
         stage('Push Docker Image') {
             when {
                 branch 'master'
