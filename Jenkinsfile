@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Container Security Scan') {
             steps {
-                sh 'echo "foobz/demo-apps `pwd`/Dockerfile" > anchore_images'
+                sh 'echo "${DOCKER_IMAGE_NAME} `pwd`/Dockerfile" > anchore_images'
                 anchore name: 'anchore_images'
             }
         }
