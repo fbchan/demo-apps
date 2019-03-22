@@ -6,7 +6,7 @@ pipeline {
         DOCKER_IMAGE_NAME = "foobz/demo-apps"
     }
     stages {
-        stage('Build') {
+        stage('Build and Test Apps') {
             steps {
                 echo 'Running build automation'
                 sh './gradlew build --no-daemon'
@@ -24,6 +24,19 @@ pipeline {
                         sh 'echo Hello, World!'
                     }
                 }
+            }
+        }
+        stage('Container Security Scan') {
+            steps {
+                sh 'echo "foobz/demo-apps `pwd`/Dockerfile" > anchore_images'
+                anchore name: 'anchore_images'
+            }
+        }
+        stage('Container Clean Up') {
+            steps {
+                sh'''
+                    for i in `cat anchore_images | awk '{print $1}'`;do docker rmi $i; done
+                '''
             }
         }
         stage('Push Docker Image') {
