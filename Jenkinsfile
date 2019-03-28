@@ -81,19 +81,19 @@ pipeline {
                        string(name: 'APPS_NAME', value: APPS_NAME)])
             }
         }
-        post {
-       // only triggered when blue or green sign
-       success {
-           slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-       }
-       // triggered when red sign
-       failure {
-           slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-       }
-       // trigger every-works
-       always {
-           slackSend ('${env.JOB_NAME} [${env.BUILD_NUMBER}]')
-       }
     }
-    }
+    post {
+            // only triggered when blue or green sign
+            success {
+                slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            }
+            // triggered when red sign
+            failure {
+                slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            }
+            // trigger every-works
+            always {
+                slackSend ('${env.JOB_NAME} [${env.BUILD_NUMBER}]')
+            }
+        }
 }
