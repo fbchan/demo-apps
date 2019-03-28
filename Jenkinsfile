@@ -13,14 +13,14 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/demo-apps.zip'
             }
             post {
-            // only triggered when blue or green sign
-            success {
-                slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-            }
-            // triggered when red sign
-            failure {
-                slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-            }
+                // only triggered when blue or green sign
+                success {
+                    slackSend (color: '#00FF00', message: "SUCCESSFUL: Build and Test Apps '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
+                // triggered when red sign
+                failure {
+                    slackSend (color: '#FF0000', message: "FAILED: Build and Test Apps '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
             }
         }
         stage('Build Docker Image') {
@@ -35,11 +35,31 @@ pipeline {
                     }
                 }
             }
+            post {
+                // only triggered when blue or green sign
+                success {
+                    slackSend (color: '#00FF00', message: "SUCCESSFUL: Build Docker Image '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
+                // triggered when red sign
+                failure {
+                    slackSend (color: '#FF0000', message: "FAILED: Build Docker Image '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
+            }
         }
         stage('Container Security Scan') {
             steps {
                 sh 'echo "${DOCKER_IMAGE_NAME} `pwd`/Dockerfile" > anchore_images'
                 anchore name: 'anchore_images'
+            }
+            post {
+                // only triggered when blue or green sign
+                success {
+                    slackSend (color: '#00FF00', message: "SUCCESSFUL: Container Security Scan '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
+                // triggered when red sign
+                failure {
+                    slackSend (color: '#FF0000', message: "FAILED: Container Security Scan '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
             }
         }
         stage('Push Docker Image') {
@@ -52,6 +72,16 @@ pipeline {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
+                }
+            }
+            post {
+                // only triggered when blue or green sign
+                success {
+                    slackSend (color: '#00FF00', message: "SUCCESSFUL: Push Docker Image to Docker Hub '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
+                // triggered when red sign
+                failure {
+                    slackSend (color: '#FF0000', message: "FAILED: Push Docker Image to Docker Hub '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                 }
             }
         }
@@ -67,6 +97,16 @@ pipeline {
                     enableConfigSubstitution: true
                 )
             }
+            post {
+                // only triggered when blue or green sign
+                success {
+                    slackSend (color: '#00FF00', message: "SUCCESSFUL: Deploy to Production - Cloud 1 '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
+                // triggered when red sign
+                failure {
+                    slackSend (color: '#FF0000', message: "FAILED: Deploy to Production - Cloud 1 '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
+            } 
         }
         stage('Deploy To Production - Cloud2') {
             when {
@@ -80,6 +120,16 @@ pipeline {
                     enableConfigSubstitution: true
                 )
             }
+            post {
+                // only triggered when blue or green sign
+                success {
+                    slackSend (color: '#00FF00', message: "SUCCESSFUL: Deploy to Production - Cloud 2 '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
+                // triggered when red sign
+                failure {
+                    slackSend (color: '#FF0000', message: "FAILED: Deploy to Production - Cloud 2 '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
+            }
         }
         stage('DeployAppServices') {
             steps {
@@ -89,6 +139,16 @@ pipeline {
                        parameters: 
                        [string(name: 'FQDN', value: FQDN),
                        string(name: 'APPS_NAME', value: APPS_NAME)])
+            }
+            post {
+                // only triggered when blue or green sign
+                success {
+                    slackSend (color: '#00FF00', message: "SUCCESSFUL: Deploy F5 Apps Services Platform '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
+                // triggered when red sign
+                failure {
+                    slackSend (color: '#FF0000', message: "FAILED: Deploy to F5 Apps Services Platform '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                }
             }
         }
     }
