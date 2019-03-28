@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        APPS_NAME = "dapps03"
-        FQDN = "dapps03.foobz.com.au"
+        APPS_NAME = "dapps01"
+        FQDN = "dapps01.foobz.com.au"
         DOCKER_IMAGE_NAME = "foobz/demo-apps"
     }
     stages {
@@ -143,11 +143,11 @@ pipeline {
             post {
                 // only triggered when blue or green sign
                 success {
-                    slackSend (color: '#00FF00', message: "SUCCESSFUL: Deploy F5 Apps Services Platform '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                    slackSend (color: '#00FF00', message: "SUCCESSFUL: Provisioned apps onto F5 Apps Services Platform '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                 }
                 // triggered when red sign
                 failure {
-                    slackSend (color: '#FF0000', message: "FAILED: Deploy to F5 Apps Services Platform '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                    slackSend (color: '#FF0000', message: "FAILED: Provisioned apps onto F5 Apps Services Platform '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                 }
             }
         }
