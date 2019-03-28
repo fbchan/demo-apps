@@ -12,8 +12,7 @@ pipeline {
                 sh './gradlew build --no-daemon'
                 archiveArtifacts artifacts: 'dist/demo-apps.zip'
             }
-        }
-        post {
+            post {
             // only triggered when blue or green sign
             success {
                 slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
@@ -21,6 +20,7 @@ pipeline {
             // triggered when red sign
             failure {
                 slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            }
             }
         }
         stage('Build Docker Image') {
