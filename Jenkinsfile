@@ -92,7 +92,7 @@ pipeline {
        }
        // trigger every-works
        always {
-           slackSend ...
+           slackSend ('${env.JOB_NAME} [${env.BUILD_NUMBER}]')
        }
     }
     }
