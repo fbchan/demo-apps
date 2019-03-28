@@ -73,7 +73,7 @@ pipeline {
         }
         stage('DeployAppServices') {
             steps {
-                // Deploy Application Services test
+                // Deploy Application Services
                 milestone(3)
                 build (job: "blue-apps-services-http", 
                        parameters: 
