@@ -13,6 +13,16 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/demo-apps.zip'
             }
         }
+        post {
+            // only triggered when blue or green sign
+            success {
+                slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            }
+            // triggered when red sign
+            failure {
+                slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            }
+        }
         stage('Build Docker Image') {
             when {
                 branch 'master'
@@ -82,18 +92,4 @@ pipeline {
             }
         }
     }
-    post {
-            // only triggered when blue or green sign
-            success {
-                slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-            }
-            // triggered when red sign
-            failure {
-                slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-            }
-            // trigger every-works
-            always {
-                sendNotifications currentBuild.result
-            }
-        }
 }
