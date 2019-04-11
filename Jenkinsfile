@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        APPS_NAME = "dapps01"
-        FQDN = "dapps01.foobz.com.au"
+        APPS_NAME = "dsecapps01"
+        FQDN = "dsecapps01.foobz.com.au"
         DOCKER_IMAGE_NAME = "foobz/demo-apps"
     }
     stages {
@@ -135,7 +135,7 @@ pipeline {
             steps {
                 // Deploy Application Services
                 milestone(3)
-                build (job: "ea5-blue-apps-services-appsec", 
+                build (job: "ea5-blue-secure-appsec", 
                        parameters: 
                        [string(name: 'FQDN', value: FQDN),
                        string(name: 'APPS_NAME', value: APPS_NAME)])
