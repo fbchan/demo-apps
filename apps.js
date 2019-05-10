@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
     }
     
   res.render('index', {
-    title: 'My Blue Platform',
+    title: 'Apps Services Platform',
     hostname: 'HOSTNAME : ' + os.hostname(),
     host_header: 'HOST HEADER ==> ' + req.header('host'),
     user_agent: 'USER AGENT ==> ' + req.header('user-agent'),
