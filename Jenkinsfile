@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    triggers {
+        cron('10 22 * * *')
+    }
     environment {
         APPS_NAME = "dsecapps01"
         FQDN = "dsecapps01.foobz.com.au"
