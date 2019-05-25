@@ -138,7 +138,7 @@ pipeline {
             steps {
                 // Deploy Application Services
                 milestone(3)
-                build (job: "ea5-blue-secure-appsec", 
+                build (job: "ansible-blue-ea6-app-services", 
                        parameters: 
                        [string(name: 'FQDN', value: FQDN),
                        string(name: 'APPS_NAME', value: APPS_NAME)])
